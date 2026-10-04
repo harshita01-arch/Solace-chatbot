@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solace — Wellness Companion</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient background layers -->
+  <div class="ambient"></div>
+  <div class="grain"></div>
+
+  <!-- App shell -->
+  <div class="shell">
+
+    <!-- ── Header ── -->
+    <header>
+      <div class="orb">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="#78c4a0" stroke-width="1.5">
+          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2
+                   2 6.477 2 12s4.477 10 10 10z"/>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+          <circle cx="9"  cy="9" r=".8" fill="#78c4a0"/>
+          <circle cx="15" cy="9" r=".8" fill="#78c4a0"/>
+        </svg>
+      </div>
+
+      <div class="brand">
+        <h1>Solace</h1>
+        <p>Mental Wellness Companion &middot; MCA Final Year Project</p>
+      </div>
+
+      <div class="live">
+        <span class="live-dot"></span>active
+      </div>
+    </header>
+
+    <!-- ── Quick-topic chips ── -->
+    <div class="chips" id="chips">
+      <span class="chip" onclick="quickSend(this)">😟 I feel anxious</span>
+      <span class="chip" onclick="quickSend(this)">🧘 Breathing exercise</span>
+      <span class="chip" onclick="quickSend(this)">😴 Can't sleep</span>
+      <span class="chip" onclick="quickSend(this)">💬 I need to vent</span>
+      <span class="chip" onclick="quickSend(this)">⚡ Feeling overwhelmed</span>
+      <span class="chip" onclick="quickSend(this)">✨ Motivate me</span>
+      <span class="chip" onclick="quickSend(this)">😢 I feel lonely</span>
+      <span class="chip" onclick="quickSend(this)">😠 I'm very angry</span>
+    </div>
+
+    <!-- ── Message feed ── -->
+    <div class="feed" id="feed">
+      <!-- Welcome screen shown before first message -->
+      <div class="welcome" id="welcome">
+        <div class="welcome-icon">🌿</div>
+        <h2>Hello, I'm <em>Solace</em></h2>
+        <p>
+          A safe, calm space to talk about how you feel —
+          no judgement, no pressure. I'm here whenever you're ready.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Mood selector ── -->
+    <div class="mood-bar">
+      <span class="mood-label">How are you feeling?</span>
+      <button class="mbtn" onclick="mood(this, 'great')">😊 Great</button>
+      <button class="mbtn" onclick="mood(this, 'okay')">😐 Okay</button>
+      <button class="mbtn" onclick="mood(this, 'sad')">😔 Sad</button>
+      <button class="mbtn" onclick="mood(this, 'anxious')">😰 Anxious</button>
+      <button class="mbtn" onclick="mood(this, 'angry')">😤 Angry</button>
+      <button class="mbtn" onclick="mood(this, 'tired')">😴 Tired</button>
+    </div>
+
+    <!-- ── Text input area ── -->
+    <div class="input-wrap">
+      <div class="input-box">
+        <textarea
+          id="msg"
+          rows="1"
+          placeholder="Type how you're feeling… or pick a topic above"
+        ></textarea>
+        <button id="send" onclick="go()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+      <p class="hint">
+        Solace is an AI chatbot — not a licensed therapist.
+        In emergencies, call iCall: 9152987821
+      </p>
+    </div>
+
+  </div><!-- /.shell -->
+
+  <!-- Chatbot logic -->
+  <script src="chatbot.js"></script>
+
+</body>
+</html>

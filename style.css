@@ -1,0 +1,479 @@
+/* =====================================================
+   SOLACE — Mental Wellness Chatbot
+   style.css  |  MCA Final Year Project
+   ===================================================== */
+
+/* ── Reset & Base ─────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Design Tokens (CSS Custom Properties) ─────────── */
+:root {
+  /* Background layers */
+  --bg:      #0b0e13;
+  --surface: #111418;
+  --panel:   #171b22;
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.07);
+
+  /* Accent colours */
+  --accent:  #78c4a0;   /* Sage green  — primary   */
+  --accent2: #d4a96a;   /* Warm amber  — secondary */
+
+  /* Text */
+  --text:  #e9e5de;
+  --muted: #7a7670;
+
+  /* Glow effect colour */
+  --glow: rgba(120, 196, 160, 0.18);
+}
+
+/* ── Body ─────────────────────────────────────────── */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Ambient Background (decorative radial gradients) ─ */
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 15% 25%,
+      rgba(120, 196, 160, 0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 55% at 85% 75%,
+      rgba(212, 169, 106, 0.05) 0%, transparent 65%);
+}
+
+/* ── Grain Texture Overlay ────────────────────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.07'/%3E%3C/svg%3E");
+}
+
+/* ── App Shell ────────────────────────────────────── */
+.shell {
+  position: relative;
+  z-index: 2;
+  width: min(820px, 100vw);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+header {
+  padding: 22px 36px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(11, 14, 19, 0.7);
+  backdrop-filter: blur(16px);
+  flex-shrink: 0;
+  animation: slideDown 0.5s ease both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Animated logo orb */
+.orb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px var(--glow);
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Breathing pulse — mimics a calm breath rhythm */
+@keyframes breathe {
+  0%,  100% { box-shadow: 0 0 20px var(--glow); }
+  50%        { box-shadow: 0 0 42px rgba(120, 196, 160, 0.3); }
+}
+
+.brand h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.brand p {
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+/* Live indicator */
+.live {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,  100% { opacity: 1; }
+  50%        { opacity: 0.3; }
+}
+
+/* =====================================================
+   QUICK-TOPIC CHIPS
+   ===================================================== */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 36px 0;
+  flex-shrink: 0;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.chip {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 15px;
+  font-size: 0.74rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.22s;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(120, 196, 160, 0.06);
+}
+
+/* =====================================================
+   MESSAGE FEED
+   ===================================================== */
+.feed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 26px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  scroll-behavior: smooth;
+}
+
+/* Thin custom scrollbar */
+.feed::-webkit-scrollbar        { width: 3px; }
+.feed::-webkit-scrollbar-thumb  { background: rgba(255,255,255,0.08); border-radius: 3px; }
+
+/* ── Welcome Screen ── */
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 52px 20px 36px;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+
+.welcome-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(120, 196, 160, 0.18),
+    rgba(120, 196, 160, 0.04)
+  );
+  border: 1px solid rgba(120, 196, 160, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin-bottom: 22px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.welcome h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.1rem;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.welcome h2 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.welcome p {
+  font-size: 0.84rem;
+  color: var(--muted);
+  max-width: 360px;
+  line-height: 1.8;
+}
+
+/* ── Message Row ── */
+.row {
+  display: flex;
+  gap: 12px;
+  animation: fadeUp 0.3s ease both;
+}
+
+/* User messages align to the right */
+.row.user {
+  flex-direction: row-reverse;
+}
+
+/* ── Avatar ── */
+.av {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  margin-top: 3px;
+}
+
+.av.bot {
+  background: rgba(120, 196, 160, 0.1);
+  border: 1px solid rgba(120, 196, 160, 0.22);
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.av.user {
+  background: rgba(212, 169, 106, 0.1);
+  border: 1px solid rgba(212, 169, 106, 0.2);
+  color: var(--accent2);
+}
+
+/* ── Chat Bubbles ── */
+.bub {
+  max-width: 70%;
+  padding: 13px 18px;
+  border-radius: 18px;
+  font-size: 0.875rem;
+  line-height: 1.78;
+}
+
+/* Bot bubble — flat corner top-left */
+.row.bot .bub {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-top-left-radius: 4px;
+}
+
+/* User bubble — flat corner top-right */
+.row.user .bub {
+  background: rgba(120, 196, 160, 0.08);
+  border: 1px solid rgba(120, 196, 160, 0.14);
+  border-top-right-radius: 4px;
+}
+
+/* Paragraph spacing inside bubbles */
+.bub p            { margin-bottom: 8px; }
+.bub p:last-child { margin-bottom: 0; }
+
+/* Bold & italic inside rendered markdown */
+.bub strong { color: var(--accent); font-weight: 500; }
+.bub em     { color: var(--accent2); font-style: italic; }
+
+/* ── Typing Indicator (three bouncing dots) ── */
+.dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: bob 1.1s ease-in-out infinite;
+}
+
+.dots span:nth-child(2) { animation-delay: 0.18s; }
+.dots span:nth-child(3) { animation-delay: 0.36s; }
+
+@keyframes bob {
+  0%, 80%, 100% { transform: translateY(0); }
+  40%            { transform: translateY(-7px); }
+}
+
+/* =====================================================
+   MOOD SELECTOR BAR
+   ===================================================== */
+.mood-bar {
+  padding: 10px 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.mood-label {
+  font-size: 0.67rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.mbtn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.74rem;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+/* Hover and active (selected) state */
+.mbtn:hover,
+.mbtn.on {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(120, 196, 160, 0.07);
+}
+
+/* =====================================================
+   TEXT INPUT AREA
+   ===================================================== */
+.input-wrap {
+  padding: 14px 36px 26px;
+  flex-shrink: 0;
+  background: rgba(11, 14, 19, 0.6);
+  backdrop-filter: blur(14px);
+}
+
+.input-box {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 10px 12px;
+  transition: border-color 0.2s;
+}
+
+/* Highlight border on focus */
+.input-box:focus-within {
+  border-color: rgba(120, 196, 160, 0.28);
+}
+
+/* Auto-resizing textarea */
+textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  resize: none;
+  max-height: 110px;
+  overflow-y: auto;
+}
+
+textarea::placeholder { color: var(--muted); }
+
+/* Send button */
+#send {
+  width: 37px;
+  height: 37px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+#send:hover    { opacity: 0.82; transform: scale(1.06); }
+#send:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
+#send svg {
+  width: 15px;
+  height: 15px;
+  color: #0b0e13;
+}
+
+/* Disclaimer text below input */
+.hint {
+  font-size: 0.67rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* =====================================================
+   RESPONSIVE — Mobile (≤ 580px)
+   ===================================================== */
+@media (max-width: 580px) {
+  header      { padding: 14px 18px; }
+  .chips      { padding: 10px 18px 0; }
+  .feed       { padding: 16px 18px; }
+  .input-wrap { padding: 10px 18px 18px; }
+  .mood-bar   { padding: 8px 18px; }
+  .bub        { max-width: 88%; }
+}
